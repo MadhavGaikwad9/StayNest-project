@@ -14,7 +14,7 @@ const listingSchema = new Schema ({
     filename: String,
     url: String,
     },
-    price: Number,
+    price:Number,
     location:String,
     country: String,
 });
