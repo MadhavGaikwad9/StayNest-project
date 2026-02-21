@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("/", (req, res) => {
     res.send("server is working");
-})
+});
 
 //Index Route
 
@@ -61,14 +61,26 @@ app.get("/listings/:id",wrapAsync  (async (req , res ) => {
  //create route
 
  app.post("/listings", wrapAsync (async (req , res , next) => {
+    if(!req.body.listing){
+        throw new ExpressError(400,"send valid data for listing");
+    }
     const newListing = new Listing(req.body.listing);
+    if(!newListing.title){
+        throw new ExpressError(400,"title is missing");
+    }
+    if(!newListing.description){
+        throw new ExpressError(400,"description is missing");
+    }
+    if(!newListing.location){
+        throw new ExpressError(400,"location is missing");
+    }
     await newListing.save();
     res.redirect("/listings");
  })
  );
 
 // edit Route
-
+    
 app.get("/listings/:id/edit", wrapAsync  (async (req , res )=> {
    let {id} = req.params;
     const listing=await Listing.findById(id);
@@ -116,11 +128,12 @@ app.use((req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-   let { statusCode = 500, message = "Something went wrong" } = err;
-   res.status(statusCode).send(message);
+  let { statusCode = 500, message = "Something went wrong" } = err;
+
+  res.status(statusCode).render("error.ejs", {  message });
 });
 
  
 app.listen(3000, () => {
     console.log("server is listening to port 3000");
-})
+});
