@@ -146,6 +146,28 @@ app.post("/listings/:id/reviews", validateReview, wrapAsync( async(req , res) =>
 }));
 
 
+//delete Review route
+
+app.delete("/listings/:id/reviews/:reviewId",
+  wrapAsync(async (req, res) => {
+
+    let { id, reviewId } = req.params;
+
+    // Remove review reference from listing
+    await Listing.findByIdAndUpdate(id, {
+      $pull: { reviews: reviewId }
+    });
+
+    // Delete review document
+    await Review.findByIdAndDelete(reviewId);
+
+    // Redirect to listing page
+    res.redirect(`/listings/${id}`);
+  })
+);
+
+
+
 
 
 /*creating testListing
