@@ -9,6 +9,9 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema , reviewSchema} = require("./schema.js");
 const Review = require("./models/review.js");
+const listings = require("./routes/listing.js");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 
 let MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
@@ -35,23 +38,26 @@ app.engine('ejs', ejsMate );
 app.use(express.static(path.join(__dirname, "/public")));
 
 
+
+const sessionOptions = {
+    secret: "mysupersecretcode",
+    resave:false,
+    saveUnitialized:true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge:+ 7 * 24 * 60 * 60 * 1000,
+        httpOnly:true,
+    },
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+
+
 app.get("/", (req, res) => {
     res.send("server is working");
 });
-
-//validatinglisting
-
-const validateListing = (req, res, next) =>{
-    let {error}=listingSchema.validate(req.body);
-
-    if(error){
-        let errMst = error.details.map((el) =>el.message).join(",");
-        throw new ExpressError(400, errMsg);
-    }
-    else{
-        next();
-    }
-};
 
 
 
@@ -70,68 +76,6 @@ const validateReview = (req, res, next) =>{
         next();
     }
 }
-
-
-
-
-
-
-
-
-
-//Index Route
-
-app.get("/listings", wrapAsync (async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
-}));
-
-//Create : New & Create Route
-app.get("/listings/new", (req , res) =>{
-    res.render("listings/new.ejs");
-});
-
-
-
- //show route
-app.get("/listings/:id",wrapAsync  (async (req , res ) => {
-    let {id} = req.params;
-    const listing=await Listing.findById(id).populate("reviews");
-    res.render("listings/show.ejs", { listing});
-}));
-
- //create route
- app.post("/listings", validateListing, wrapAsync (async (req , res , next) => {
-    const newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
- })
- );
-
-// edit Route
-    
-app.get("/listings/:id/edit", wrapAsync  (async (req , res )=> {
-   let {id} = req.params;
-    const listing=await Listing.findById(id);
-    res.render("listings/edit.ejs", {listing});
-})); 
-
-//Update Route
-app.put("/listings/:id",validateListing ,wrapAsync (async (req , res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, {...req.body.listing });
-    res.redirect(`/listings/${id}`);
-}));
-
-
-//delete Route
-
-app.delete("/listings/:id", wrapAsync  (async (req , res ) => {
-    let { id } = req.params;
-    let deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
-    res.redirect("/listings");
-}));
 
 //reviews post route
 app.post("/listings/:id/reviews", validateReview, wrapAsync( async(req , res) => {
