@@ -1,0 +1,43 @@
+<% layout('/layouts/boilerplate') %>
+<div class="row g-4">
+  <div class="col-lg-4">
+    <div class="card shadow-sm p-4">
+      <div class="d-flex align-items-center gap-3 mb-3">
+        <img src="<%= currentUser.profileImage %>" class="rounded-circle" width="70" height="70" alt="profile" />
+        <div>
+          <h4 class="mb-1"><%= currentUser.username %></h4>
+          <p class="text-muted mb-0"><%= currentUser.email %></p>
+        </div>
+      </div>
+      <div class="small text-muted">
+        <div>Member since <%= currentUser.createdAt.toDateString() %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card shadow-sm p-4 mb-4">
+      <h4 class="fw-bold mb-3">Account details</h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between"><span>Username</span><strong><%= currentUser.username %></strong></li>
+        <li class="list-group-item d-flex justify-content-between"><span>Email</span><strong><%= currentUser.email %></strong></li>
+        <li class="list-group-item d-flex justify-content-between"><span>Account status</span><strong>Active</strong></li>
+      </ul>
+    </div>
+
+    <div class="card shadow-sm p-4">
+      <h4 class="fw-bold mb-3">Reset password</h4>
+      <form method="POST" action="/users/reset-password">
+        <div class="mb-3">
+          <label class="form-label">Current password</label>
+          <input type="password" name="currentPassword" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">New password</label>
+          <input type="password" name="newPassword" class="form-control" required />
+        </div>
+        <button class="btn btn-danger">Update password</button>
+      </form>
+    </div>
+  </div>
+</div>

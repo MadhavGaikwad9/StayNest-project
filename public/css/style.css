@@ -1,121 +1,81 @@
-body{
-   font-family: "Plus Jakarta Sans", sans-serif !important;
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f8f9fb;
+  color: #222;
 }
 
-.container{
-    flex: 1;
-}
-.navbar{
-    height:5rem;
-}
- 
-.fa-compass{
-    color:#fe424d;
-    font-size: 2rem;
-    background-color:white;
-
-}
-/*navbar color*/
-.nav-link{
-    color:#222222 !important;
+.container {
+  flex: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
 }
 
-/*footer*/
-.f-info-links a{
-    text-decoration:none;
-    color:#222222;
+.navbar {
+  height: 5rem;
 }
 
-
-.f-info-links a:hover{
-    text-decoration:underline;
-} 
-.f-info-links,.f-info-socials,.f-info-brand{
-    width:100%;
-    vertical-align: middle;
-    display:flex;
-    align-items: center;
-     justify-content: center;
+.fa-compass {
+  color: #fe424d;
+  font-size: 1.8rem;
 }
 
-/*.f-info-socials{
-    width:100%;
-    front-size:1.2rem;
-    margin-right:2rem;
-}*/
-
-
-f-info-socials i{
-    front-size:1.2rem;
-     margin-right:2rem;
+.nav-link {
+  color: #222 !important;
 }
 
-
-
-
-.f-info{
-    text-align:center;
-    height: 8rem;
-    background-color:#ebebeb;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: center;
-    align-items:space-evenly;
+.hero-section {
+  background: linear-gradient(135deg, #fff7f7 0%, #ffffff 100%);
+  border-radius: 1.5rem;
+  padding: 2rem;
 }
 
-
-/*CARDS STYLING*/
-.listing-card{
-    border: none !important;
-    margin-bottom:2rem;
-
-}
-.card-img-top{
-    border-radius: 1rem !important;
-    width :100% !important;
-    object-fit: cover !important;
+.listing-card {
+  border: none !important;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card-body{
-    padding:0 !important;
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1) !important;
 }
 
-.listing-link{
-    text-decoration:none;
+.card-img-top {
+  height: 14rem;
+  object-fit: cover;
 }
 
-/*card effects */
-.card-img-overlay{
-    opacity:0;
+.f-info {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #ebebeb;
 }
 
-.card-img-overlay :hover {
-    opacity:0.2;
-    background-color:white;
-}
-/* New page listing*/
-.add-btn {
-    background-color:#fe424d !important;
-    border:none !important;
-}
-/* edit button*/
-.edit-btn {
-     background-color:#fe424d !important;
-    border:none !important;
-}
-/*show page*/
-.show-img{
-    height:30vh;
+.f-info-links a {
+  text-decoration: none;
+  color: #222;
+  margin: 0 0.5rem;
 }
 
-.col-1{
-    display:flex;
+.f-info-links a:hover {
+  text-decoration: underline;
 }
 
-.show-card{
-    padding-left:0;
-    padding-right:0;
+.btn-danger {
+  background-color: #fe424d !important;
+  border-color: #fe424d !important;
+}
+
+.btn-outline-danger {
+  color: #fe424d !important;
+  border-color: #fe424d !important;
+}
+
+.btn-outline-danger:hover {
+  background-color: #fe424d !important;
+  color: white !important;
 }

@@ -1,103 +1,48 @@
-🏡 StayNest — Airbnb Demo Clone
+# StayNest
 
-StayNest is a demo accommodation booking web application inspired by Airbnb.
-It allows users to explore listings, view details, and perform basic CRUD operations for properties.
+StayNest is a polished Airbnb-inspired accommodation platform built with Node.js, Express, MongoDB, EJS, and Bootstrap. It now includes authentication, authorization, reviews, bookings, search filters, and a modern portfolio-style UI.
 
-This project demonstrates full-stack development using Node.js, Express, MongoDB, and EJS.
+## Features
+- User registration and login
+- Secure password hashing
+- Listing creation, editing, and deletion
+- Search and filtering by location, category, price, and sort order
+- Review and rating system
+- Booking flow with check-in/check-out and guest selection
+- Responsive premium UI with Bootstrap
 
-🚀 Features
+## Tech Stack
+- Frontend: EJS, Bootstrap, HTML, CSS, JavaScript
+- Backend: Node.js, Express.js
+- Database: MongoDB, Mongoose
+- Security: Helmet, rate limiting, session-based auth
 
-🏠 Browse property listings
+## Project Structure
+- app.js
+- config/
+- controllers/
+- models/
+- routes/
+- middleware/
+- validators/
+- views/
+- public/
+- seeds/
 
-➕ Add new listings
+## Installation
+1. Install dependencies: npm install
+2. Create a .env file using .env.example
+3. Start MongoDB locally
+4. Run: npm run seed
+5. Start the app: npm start
 
-✏️ Edit existing listings
+## Environment Variables
+- MONGO_URL
+- SESSION_SECRET
+- PORT
+- CLOUDINARY_NAME
+- CLOUDINARY_KEY
+- CLOUDINARY_SECRET
 
-❌ Delete listings
-
-📄 View detailed property pages
-
-📱 Responsive design using Bootstrap
-
-🛠️ Tech Stack
-
-Frontend
-
-HTML
-
-CSS
-
-JavaScript
-
-Bootstrap
-
-EJS (Embedded JavaScript Templates)
-
-Backend
-
-Node.js
-
-Express.js
-
-Database
-
-MongoDB
-
-Templating & Tools
-
-EJS Mate (Layout support for EJS)
-
-📂 Project Structure
-StayNest/
-│
-├── models/        # MongoDB models
-├── routes/        # Express routes
-├── views/         # EJS templates
-│   ├── layouts/
-│   ├── listings/
-│
-├── public/        # Static files (CSS, JS, images)
-├── app.js         # Main server file
-├── package.json
-
-⚙️ Installation & Setup
-1️⃣ Clone the repository
-git clone https://github.com/your-username/staynest.git
-cd staynest
-
-2️⃣ Install dependencies
-npm install
-
-3️⃣ Start MongoDB
-
-Make sure MongoDB is running locally.
-
-4️⃣ Run the server
-node app.js
-
-
-or (if using nodemon)
-
-npx nodemon app.js
-
-5️⃣ Open in browser
-http://localhost:3000
-
-🎯 Purpose of This Project
-
-This project was built for learning and practicing:
-
-Full-stack web development
-
-RESTful routing
-
-CRUD operations
-
-MVC structure
-
-Database integration
-
-
-👨‍💻 Author
-
+## Author
 Madhav Gaikwad

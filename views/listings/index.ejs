@@ -1,25 +1,59 @@
-<% layout("/layouts/boilerplate")%>
-<body>
-    <h3>All Listings</h3>
-        <!--<form method="GET" action="/listings/new">
-            <button>Create New Listing</button>
-        </form>-->
-
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-     <% for(let listing of allListings) { %>
-        <a href="/listings/<%= listing._id %>" class="listing-link">
-
-      <div class="card col listing-card" >
-  <img src="<%= listing.image.url %>"  class="card-img-top" alt="listing_image" style="height:20rem" />
-
-  <div class="card-img-overlay"></div>
-  <div class="card-body">
-    <p class="card-text"> 
-       <b> <%= listing.title %> <br/> </b>
-        &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %>
-
-    </p>
+<% layout('/layouts/boilerplate') %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold">Discover stays</h2>
+    <p class="text-muted mb-0">Find the perfect home for your next getaway.</p>
   </div>
+  <% if (currentUser) { %>
+    <a href="/listings/new" class="btn btn-danger">Create listing</a>
+  <% } %>
+</div>
+
+<form class="row g-2 mb-4" method="GET" action="/listings">
+  <div class="col-md-3">
+    <input class="form-control" type="text" name="location" value="<%= filters.location || '' %>" placeholder="Location" />
   </div>
-<% } %>
+  <div class="col-md-2">
+    <select class="form-select" name="category">
+      <option value="">Any category</option>
+      <% categories.forEach((cat) => { %>
+        <option value="<%= cat %>" <%= filters.category === cat ? 'selected' : '' %>><%= cat %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <input class="form-control" type="number" name="minPrice" value="<%= filters.minPrice || '' %>" placeholder="Min price" />
+  </div>
+  <div class="col-md-2">
+    <input class="form-control" type="number" name="maxPrice" value="<%= filters.maxPrice || '' %>" placeholder="Max price" />
+  </div>
+  <div class="col-md-2">
+    <select class="form-select" name="sortBy">
+      <option value="newest">Newest</option>
+      <option value="lowest" <%= filters.sortBy === 'lowest' ? 'selected' : '' %>>Lowest price</option>
+      <option value="highest" <%= filters.sortBy === 'highest' ? 'selected' : '' %>>Highest price</option>
+    </select>
+  </div>
+  <div class="col-md-1">
+    <button class="btn btn-dark w-100">Go</button>
+  </div>
+</form>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <% allListings.forEach((listing) => { %>
+    <div class="col">
+      <div class="card listing-card h-100 shadow-sm">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" />
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0"><%= listing.title %></h5>
+            <span class="badge rounded-pill bg-light text-dark">★ 5.0</span>
+          </div>
+          <p class="text-muted small mb-2"><%= listing.location %>, <%= listing.country %></p>
+          <p class="fw-semibold mb-2">₹<%= listing.price.toLocaleString('en-IN') %> / night</p>
+          <a href="/listings/<%= listing._id %>" class="btn btn-outline-dark btn-sm">View details</a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
 </div>
